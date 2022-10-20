@@ -48,25 +48,35 @@ def make_times(cnt: int, space: int):
         space (int): интервал поездов
 
     Returns:
-        Множество минут - нахождения на станции
+        (low, up): минимальное и максимальное время ожидния на платформе
     """
     # среднее время простоя
     sred = cnt * (1 + space)
+    # нижняя граница времени ожидпния на платформе
+    low = sred - space
+    # верхняя граница
+    up = sred + space
     # первый элемент минимальное время
     # последний элемент максимально возможное время
-    res = {x for x in range(sred - space, sred + space + 1)}
-    return res
+    return low, up
 
 
 def work(a, b, n, m):
-    first = make_times(n, a)
-    second = make_times(m, b)
-
-    res = first & second
-    if not res:
+    # Отрезки времени ля первой платформы
+    low1, up1 = make_times(n, a)
+    # отрежки времени для второй платформы
+    low2, up2 = make_times(m, b)
+    # Общее минимальное время на платформе
+    low = max(low1, low2)
+    # Общее максимальное время на
+    up = min(up1, up2)
+    # Если нижняя граница больше берхней, то Таня точно ошиблась
+    if low > up:
         return [-1]
     else:
-        return (min(res), max(res))
+        # иначе возвращаем минимальное и максимальное время в минутах,
+        # которые Таня стояла на платформе
+        return low, up
 
 
 if __name__ == "__main__":

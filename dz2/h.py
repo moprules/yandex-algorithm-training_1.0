@@ -1,5 +1,5 @@
 """
-В данном списке из n ≤ 105 целых чисел найдите три числа,произведение которых максимально.
+В данном списке из n <= 10^5 целых чисел найдите три числа,произведение которых максимально.
 
 Решение должно иметь сложность O(n), где n - размер списка.
 
@@ -25,22 +25,12 @@
 """
 
 
-from argparse import ArgumentError
+from math import prod
 
 
 def input_data():
     nums = [int(x) for x in input().split()]
     return nums
-
-
-def mult(mas):
-    if not mas:
-        raise ArgumentError
-    else:
-        m = 1
-        for x in mas:
-            m *= x
-        return m
 
 
 def work(nums: list):
@@ -87,21 +77,18 @@ def work(nums: list):
             elif max_p[2] is None or max_p[2] < num:
                 max_p[2] = num
 
-    vers_trash = [max_m, max_p, (*min_m, max_p[0]), (max_m[0], *min_p)]
-    vers = []
-    for ver in vers_trash:
-        if None not in ver:
-            vers.append(ver)
-
-    max_ver = vers[0]
-    max_mult = mult(max_ver)
-    for i in range(1, len(vers)):
-        cur_mult = mult(vers[i])
-        if cur_mult > max_mult:
-            max_mult = cur_mult
-            max_ver = vers[i]
-
-    return max_ver
+    variants = [max_m, max_p, (*min_m, max_p[0]), (max_m[0], *min_p)]
+    # Если где-то содержится None по умолчанию, то такого варианта нет
+    variants = [v for v in variants if None not in v]
+    # По условию задачи ответ однозначен, значит variants не может быть пустым
+    # Список произведений чисел
+    mults = [prod(v) for v in variants]
+    # Ищем пару чисел с максимальным произведением
+    i_max = 0
+    for i in range(1, len(mults)):
+        if mults[i_max] < mults[i]:
+            i_max = i
+    return variants[i_max]
 
 
 if __name__ == "__main__":

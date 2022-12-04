@@ -1,5 +1,6 @@
 """
-Дан список. Определите, является ли он монотонно возрастающим(то есть верно ли, что каждый элемент этого списка больше предыдущего).
+Дан список. Определите, является ли он монотонно возрастающим(то есть верно ли, что
+каждый элемент этого списка больше предыдущего).
 
 Выведите YES, если массив монотонно возрастает и NO в противном случае.
 Пример 1
@@ -23,18 +24,11 @@ def input_data():
 def isGrow(mas: list):
     for i in range(1, len(mas)):
         if mas[i] <= mas[i - 1]:
-            return False
-    return True
-
-
-def work(mas: list):
-    if isGrow(mas):
-        return "YES"
-    else:
-        return "NO"
+            return "NO"
+    return "YES"
 
 
 if __name__ == "__main__":
     mas = input_data()
-    res = work(mas)
+    res = isGrow(mas)
     print(res)

@@ -100,7 +100,7 @@ class Field:
         """Перегрузка оператора & - пересечение"""
         # Результирующее поле
         res_field = Field()
-        # левый край
+        # Левый край
         res_field.p1 = max(self.p1, other.p1)
         res_field.q1 = max(self.q1, other.q1)
         # Правый край
@@ -110,7 +110,7 @@ class Field:
 
     def __iand__(self, other):
         """Перегрузка оператора &= - пересечение c присовением"""
-        # левый край
+        # Левый край
         self.p1 = max(self.p1, other.p1)
         self.q1 = max(self.q1, other.q1)
         # Правый край
@@ -120,6 +120,7 @@ class Field:
 
     def expand(self, t: int):
         """Расширить область на t во все стороны"""
+        # Левый край
         self.p1 -= t
         self.q1 -= t
         # Правый край
@@ -140,7 +141,7 @@ class Field:
         print(len(res_mas))
         # выводим сами точки
         for (x, y) in res_mas:
-            print(x, y, sep=" ")
+            print(x, y)
 
 
 def input_data():

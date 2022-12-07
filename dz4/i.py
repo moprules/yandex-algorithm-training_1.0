@@ -73,6 +73,10 @@ def solve():
         if word.lower() not in d:
             cntBig = 0
             for c in word:
+                # В лексикографическом порядке
+                # Заглавные буквы стоят раньше прописных
+                # В универсальном варианте можно было бы написать
+                # c == c.upper()
                 if c < "a":
                     cntBig += 1
             if cntBig != 1:
